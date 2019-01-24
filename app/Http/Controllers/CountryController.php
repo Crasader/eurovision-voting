@@ -9,7 +9,7 @@ class CountryController extends Controller
 {
     public function index()
     {
-        $contires = Country::select('name')
+        $contires = Country::select('id', 'name')
                             ->get();
 
         return $contires->toJson();
@@ -17,7 +17,7 @@ class CountryController extends Controller
 
     public function voteStatus()
     {
-        $contires = Country::select('name', 'has_voted')
+        $contires = Country::select('id', 'name', 'has_voted')
                             ->get();
 
         return $contires->toJson();
@@ -25,7 +25,7 @@ class CountryController extends Controller
 
     public function results()
     {
-        $contires = Country::get();
+        $contires = Country::orderBy('score', 'desc')->get();
 
         return $contires->toJson();
     }

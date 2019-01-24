@@ -17,7 +17,7 @@ class VoteController extends Controller
 
     public function vote(Request $request, $id)
     {
-        // create new vote
+        // validate input
         $validatedData = $request->validate([
             'country_id' => 'required',
             'point_1' => 'required',
@@ -31,24 +31,28 @@ class VoteController extends Controller
             'point_10' => 'required',
             'point_12' => 'required'
         ]);
-        $vote = Vote::create([
-            'country_id' => $validatedData['country_id'],
-            'point_1' => $validatedData['point_1'],
-            'point_2' => $validatedData['point_2'],
-            'point_3' => $validatedData['point_3'],
-            'point_4' => $validatedData['point_4'],
-            'point_5' => $validatedData['point_5'],
-            'point_6' => $validatedData['point_6'],
-            'point_7' => $validatedData['point_7'],
-            'point_8' => $validatedData['point_8'],
-            'point_10' => $validatedData['point_10'],
-            'point_12' => $validatedData['point_12']
-        ]);
 
-        // contry has voted
-        $country = Country::findOrFail($validatedData['country_id']);
-        $country->has_voted = true;
-        $country->save();
+        $votingCountry = Country::findOrFail($validatedData['country_id']);
+
+        // check if country has voted
+        if ($votingCountry->has_voted) {
+            return response()->json('This country voted!');
+        } else {
+            // create new vote
+            $vote = Vote::create([
+                'country_id' => $validatedData['country_id'],
+                'point_1' => $validatedData['point_1'],
+                'point_2' => $validatedData['point_2'],
+                'point_3' => $validatedData['point_3'],
+                'point_4' => $validatedData['point_4'],
+                'point_5' => $validatedData['point_5'],
+                'point_6' => $validatedData['point_6'],
+                'point_7' => $validatedData['point_7'],
+                'point_8' => $validatedData['point_8'],
+                'point_10' => $validatedData['point_10'],
+                'point_12' => $validatedData['point_12']
+            ]);
+        }
 
         // update contries scores
         for($i = 1; $i <= 10; $i++)
@@ -67,6 +71,10 @@ class VoteController extends Controller
             $country->score += $i;
             $country->save();
         }
+
+        // contry has voted
+        $votingCountry->has_voted = true;
+        $votingCountry->save();
 
         return response()->json('Vote accepted!');
     }
