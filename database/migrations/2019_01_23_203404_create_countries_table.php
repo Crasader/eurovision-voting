@@ -16,7 +16,7 @@ class CreateCountriesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->smallInteger('total_points')->default(0);
+            $table->smallInteger('score')->default(0);
             $table->boolean('has_voted')->default(0);
         });
     }

@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('contries', 'CountryController@index');
+Route::get('contries/voteStatus', 'CountryController@voteStatus');
+Route::get('contries/results', 'CountryController@results');
+
+Route::get('votes/details', 'VoteController@index');
+Route::put('votes/{id}', 'VoteController@vote');
