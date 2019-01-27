@@ -64379,7 +64379,8 @@ function (_Component) {
       }, point), countries.map(function (country) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: country.id,
-          value: country.id
+          value: country.id,
+          hidden: country.selected
         }, country.name);
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "invalid-feedback"
@@ -64464,8 +64465,13 @@ function (_Component) {
   _createClass(Vote, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.countries !== prevProps.countries) {
-        this.updateCountries();
+      var _this$props = this.props,
+          votingCountryId = _this$props.votingCountryId,
+          countries = _this$props.countries;
+
+      if (countries !== prevProps.countries || votingCountryId !== prevProps.votingCountryId) {
+        this.resetInputs();
+        this.updateAvailableCountriesForVote(votingCountryId);
       }
     }
   }, {
@@ -64485,9 +64491,16 @@ function (_Component) {
       });
     }
   }, {
-    key: "updateCountries",
-    value: function updateCountries() {
+    key: "updateAvailableCountriesForVote",
+    value: function updateAvailableCountriesForVote(votingCountryId) {
       var countries = this.props.countries;
+      countries.forEach(function (item) {
+        if (item.id != votingCountryId) {
+          item.selected = false;
+        } else {
+          item.selected = true;
+        }
+      });
       this.setState({
         availableCountriesForVote: countries
       });
@@ -64495,7 +64508,19 @@ function (_Component) {
   }, {
     key: "handleFieldChange",
     value: function handleFieldChange(event) {
-      this.setState(_defineProperty({}, event.target.name, parseInt(event.target.value)));
+      var _this$state = this.state,
+          previousSelectedCountry = _this$state[event.target.name],
+          availableCountriesForVote = _this$state.availableCountriesForVote;
+      availableCountriesForVote.forEach(function (item) {
+        if (item.id == event.target.value) {
+          item.selected = true;
+        } else if (item.id == previousSelectedCountry) {
+          item.selected = false;
+        }
+      });
+      this.setState(_defineProperty({
+        availableCountriesForVote: availableCountriesForVote
+      }, event.target.name, parseInt(event.target.value)));
     }
   }, {
     key: "submitVote",
@@ -64503,20 +64528,20 @@ function (_Component) {
       var _this2 = this;
 
       event.preventDefault();
-      var _this$props = this.props,
-          votingCountryId = _this$props.votingCountryId,
-          history = _this$props.history;
-      var _this$state = this.state,
-          point_1 = _this$state.point_1,
-          point_2 = _this$state.point_2,
-          point_3 = _this$state.point_3,
-          point_4 = _this$state.point_4,
-          point_5 = _this$state.point_5,
-          point_6 = _this$state.point_6,
-          point_7 = _this$state.point_7,
-          point_8 = _this$state.point_8,
-          point_10 = _this$state.point_10,
-          point_12 = _this$state.point_12;
+      var _this$props2 = this.props,
+          votingCountryId = _this$props2.votingCountryId,
+          history = _this$props2.history;
+      var _this$state2 = this.state,
+          point_1 = _this$state2.point_1,
+          point_2 = _this$state2.point_2,
+          point_3 = _this$state2.point_3,
+          point_4 = _this$state2.point_4,
+          point_5 = _this$state2.point_5,
+          point_6 = _this$state2.point_6,
+          point_7 = _this$state2.point_7,
+          point_8 = _this$state2.point_8,
+          point_10 = _this$state2.point_10,
+          point_12 = _this$state2.point_12;
       var vote = {
         country_id: votingCountryId,
         point_1: point_1,
@@ -64548,18 +64573,18 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var _this$state2 = this.state,
-          point_1 = _this$state2.point_1,
-          point_2 = _this$state2.point_2,
-          point_3 = _this$state2.point_3,
-          point_4 = _this$state2.point_4,
-          point_5 = _this$state2.point_5,
-          point_6 = _this$state2.point_6,
-          point_7 = _this$state2.point_7,
-          point_8 = _this$state2.point_8,
-          point_10 = _this$state2.point_10,
-          point_12 = _this$state2.point_12,
-          availableCountriesForVote = _this$state2.availableCountriesForVote;
+      var _this$state3 = this.state,
+          point_1 = _this$state3.point_1,
+          point_2 = _this$state3.point_2,
+          point_3 = _this$state3.point_3,
+          point_4 = _this$state3.point_4,
+          point_5 = _this$state3.point_5,
+          point_6 = _this$state3.point_6,
+          point_7 = _this$state3.point_7,
+          point_8 = _this$state3.point_8,
+          point_10 = _this$state3.point_10,
+          point_12 = _this$state3.point_12,
+          availableCountriesForVote = _this$state3.availableCountriesForVote;
       var votingCountryName = this.props.votingCountryName;
       var points = [{
         id: 1,

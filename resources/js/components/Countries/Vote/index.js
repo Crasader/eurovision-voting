@@ -23,8 +23,11 @@ class Vote extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.countries !== prevProps.countries) {
-            this.updateCountries();
+        const { votingCountryId, countries } = this.props;
+
+        if ((countries !== prevProps.countries) || (votingCountryId !== prevProps.votingCountryId)) {
+            this.resetInputs();
+            this.updateAvailableCountriesForVote(votingCountryId);
         }
     }
 
@@ -43,8 +46,16 @@ class Vote extends Component {
         })
     }
 
-    updateCountries() {
+    updateAvailableCountriesForVote(votingCountryId) {
         const { countries } = this.props;
+        
+        countries.forEach(function(item) { 
+            if (item.id != votingCountryId) {
+                item.selected = false;
+            } else {
+                item.selected = true;
+            }
+        })
 
         this.setState({
             availableCountriesForVote: countries
@@ -52,7 +63,18 @@ class Vote extends Component {
     } 
 
     handleFieldChange(event) {
+        const { [event.target.name]: previousSelectedCountry, availableCountriesForVote } = this.state;
+
+        availableCountriesForVote.forEach(function(item) { 
+            if (item.id == event.target.value) {
+                item.selected = true;
+            } else if (item.id == previousSelectedCountry) {
+                item.selected = false; 
+            }
+        })
+
         this.setState({
+            availableCountriesForVote,
             [event.target.name]: parseInt(event.target.value)
         })
     }

@@ -12,7 +12,7 @@ class Point extends Component {
                     <option value="" hidden>{point}</option>
                     {
                         countries.map(country => (
-                            <option key={country.id} value={country.id}>{country.name}</option>
+                            <option key={country.id} value={country.id} hidden={country.selected}>{country.name}</option>
                         ))
                     }
                 </select>
