@@ -34,7 +34,7 @@ class Results extends Component {
 												key={country.id}
 											>
 												{country.name}
-												<span className='badge badge-primary badge-pill'>
+												<span className='badge badge-dark badge-pill'>
 													{country.score}
 												</span>
 											</div>

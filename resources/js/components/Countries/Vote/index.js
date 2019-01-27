@@ -7,16 +7,16 @@ class Vote extends Component {
         super()
         this.state = {
             availableCountriesForVote: [],
-            point_1: 0,
-            point_2: 0,
-            point_3: 0,
-            point_4: 0,
-            point_5: 0,
-            point_6: 0,
-            point_7: 0,
-            point_8: 0,
-            point_10: 0,
-            point_12: 0
+            point_1: '',
+            point_2: '',
+            point_3: '',
+            point_4: '',
+            point_5: '',
+            point_6: '',
+            point_7: '',
+            point_8: '',
+            point_10: '',
+            point_12: ''
         }
         this.handleFieldChange = this.handleFieldChange.bind(this)
         this.submitVote = this.submitVote.bind(this)
@@ -24,11 +24,32 @@ class Vote extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.countries !== prevProps.countries) {
-            this.setState({
-                availableCountriesForVote: this.props.countries
-            })
+            this.updateCountries();
         }
     }
+
+    resetInputs() {
+        this.setState({
+            point_1: '',
+            point_2: '',
+            point_3: '',
+            point_4: '',
+            point_5: '',
+            point_6: '',
+            point_7: '',
+            point_8: '',
+            point_10: '',
+            point_12: ''
+        })
+    }
+
+    updateCountries() {
+        const { countries } = this.props;
+
+        this.setState({
+            availableCountriesForVote: countries
+        })
+    } 
 
     handleFieldChange(event) {
         this.setState({
@@ -59,10 +80,10 @@ class Vote extends Component {
         }
 
         axios.post('/api/votes', vote)
-        .then(response => {
-            this.closeVote();
-        });
-
+            .then(response => {
+                this.resetInputs();
+                this.closeVote();
+            });
     }
 
     closeVote() {
@@ -73,10 +94,24 @@ class Vote extends Component {
     }
 
     render() {
-        const { availableCountriesForVote } = this.state;
+        const { point_1, point_2, point_3,
+            point_4, point_5, point_6,
+            point_7, point_8, point_10,
+            point_12, availableCountriesForVote } = this.state;
         const { votingCountryName } = this.props;
 
-        const points = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12];
+        const points = [
+            { id: 1, value: point_1 },
+            { id: 2, value: point_2 },
+            { id: 3, value: point_3 },
+            { id: 4, value: point_4 },
+            { id: 5, value: point_5 },
+            { id: 6, value: point_6 },
+            { id: 7, value: point_7 },
+            { id: 8, value: point_8 },
+            { id: 10, value: point_10 },
+            { id: 12, value: point_12 }
+        ];
 
         return (
             <div className="modal fade" id="voteModal" tabIndex="-1" role="dialog" aria-labelledby="voteTitle" aria-hidden="true">
@@ -92,7 +127,13 @@ class Vote extends Component {
                             <div className="modal-body">
                                 {
                                     points.map(point => (
-                                        <Point point={point} countries={availableCountriesForVote} key={point} handleFieldChange={this.handleFieldChange} />
+                                        <Point
+                                            key={point.id}
+                                            point={point.id}
+                                            value={point.value}
+                                            countries={availableCountriesForVote}
+                                            handleFieldChange={this.handleFieldChange}
+                                        />
                                     ))
                                 }
                             </div>

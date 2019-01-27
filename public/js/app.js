@@ -64361,6 +64361,7 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           point = _this$props.point,
+          value = _this$props.value,
           countries = _this$props.countries,
           handleFieldChange = _this$props.handleFieldChange;
       var pointName = "point_" + point;
@@ -64369,7 +64370,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "custom-select",
         name: pointName,
-        defaultValue: "",
+        value: value,
         onChange: handleFieldChange,
         required: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -64444,16 +64445,16 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Vote).call(this));
     _this.state = {
       availableCountriesForVote: [],
-      point_1: 0,
-      point_2: 0,
-      point_3: 0,
-      point_4: 0,
-      point_5: 0,
-      point_6: 0,
-      point_7: 0,
-      point_8: 0,
-      point_10: 0,
-      point_12: 0
+      point_1: '',
+      point_2: '',
+      point_3: '',
+      point_4: '',
+      point_5: '',
+      point_6: '',
+      point_7: '',
+      point_8: '',
+      point_10: '',
+      point_12: ''
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.submitVote = _this.submitVote.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -64464,10 +64465,32 @@ function (_Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (this.props.countries !== prevProps.countries) {
-        this.setState({
-          availableCountriesForVote: this.props.countries
-        });
+        this.updateCountries();
       }
+    }
+  }, {
+    key: "resetInputs",
+    value: function resetInputs() {
+      this.setState({
+        point_1: '',
+        point_2: '',
+        point_3: '',
+        point_4: '',
+        point_5: '',
+        point_6: '',
+        point_7: '',
+        point_8: '',
+        point_10: '',
+        point_12: ''
+      });
+    }
+  }, {
+    key: "updateCountries",
+    value: function updateCountries() {
+      var countries = this.props.countries;
+      this.setState({
+        availableCountriesForVote: countries
+      });
     }
   }, {
     key: "handleFieldChange",
@@ -64508,6 +64531,8 @@ function (_Component) {
         point_12: point_12
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/votes', vote).then(function (response) {
+        _this2.resetInputs();
+
         _this2.closeVote();
       });
     }
@@ -64523,9 +64548,50 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var availableCountriesForVote = this.state.availableCountriesForVote;
+      var _this$state2 = this.state,
+          point_1 = _this$state2.point_1,
+          point_2 = _this$state2.point_2,
+          point_3 = _this$state2.point_3,
+          point_4 = _this$state2.point_4,
+          point_5 = _this$state2.point_5,
+          point_6 = _this$state2.point_6,
+          point_7 = _this$state2.point_7,
+          point_8 = _this$state2.point_8,
+          point_10 = _this$state2.point_10,
+          point_12 = _this$state2.point_12,
+          availableCountriesForVote = _this$state2.availableCountriesForVote;
       var votingCountryName = this.props.votingCountryName;
-      var points = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12];
+      var points = [{
+        id: 1,
+        value: point_1
+      }, {
+        id: 2,
+        value: point_2
+      }, {
+        id: 3,
+        value: point_3
+      }, {
+        id: 4,
+        value: point_4
+      }, {
+        id: 5,
+        value: point_5
+      }, {
+        id: 6,
+        value: point_6
+      }, {
+        id: 7,
+        value: point_7
+      }, {
+        id: 8,
+        value: point_8
+      }, {
+        id: 10,
+        value: point_10
+      }, {
+        id: 12,
+        value: point_12
+      }];
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "modal fade",
         id: "voteModal",
@@ -64557,9 +64623,10 @@ function (_Component) {
         className: "modal-body"
       }, points.map(function (point) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Point__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          point: point,
+          key: point.id,
+          point: point.id,
+          value: point.value,
           countries: availableCountriesForVote,
-          key: point,
           handleFieldChange: _this3.handleFieldChange
         });
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -64904,7 +64971,7 @@ function (_Component) {
           className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
           key: country.id
         }, country.name, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-          className: "badge badge-primary badge-pill"
+          className: "badge badge-dark badge-pill"
         }, country.score));
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center"
