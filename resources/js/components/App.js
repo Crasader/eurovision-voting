@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
 import Home from './Home'
-import ContriesList from './ContriesList'
+import CountriesList from './Countries'
 import Results from './Results'
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/contries' component={ContriesList} />
+            <Route exact path='/countries' component={CountriesList} />
             <Route exact path='/results' component={Results} />
           </Switch>
         </div>

@@ -15,7 +15,7 @@ class VoteController extends Controller
         return $votes->toJson();
     }
 
-    public function vote(Request $request, $id)
+    public function vote(Request $request)
     {
         // validate input
         $validatedData = $request->validate([
@@ -37,38 +37,41 @@ class VoteController extends Controller
         // check if country has voted
         if ($votingCountry->has_voted) {
             return response()->json('This country voted!');
-        } else {
-            // create new vote
-            $vote = Vote::create([
-                'country_id' => $validatedData['country_id'],
-                'point_1' => $validatedData['point_1'],
-                'point_2' => $validatedData['point_2'],
-                'point_3' => $validatedData['point_3'],
-                'point_4' => $validatedData['point_4'],
-                'point_5' => $validatedData['point_5'],
-                'point_6' => $validatedData['point_6'],
-                'point_7' => $validatedData['point_7'],
-                'point_8' => $validatedData['point_8'],
-                'point_10' => $validatedData['point_10'],
-                'point_12' => $validatedData['point_12']
-            ]);
         }
+        
+        // create new vote
+        $vote = Vote::create([
+            'country_id' => $validatedData['country_id'],
+            'point_1' => $validatedData['point_1'],
+            'point_2' => $validatedData['point_2'],
+            'point_3' => $validatedData['point_3'],
+            'point_4' => $validatedData['point_4'],
+            'point_5' => $validatedData['point_5'],
+            'point_6' => $validatedData['point_6'],
+            'point_7' => $validatedData['point_7'],
+            'point_8' => $validatedData['point_8'],
+            'point_10' => $validatedData['point_10'],
+            'point_12' => $validatedData['point_12']
+        ]);
 
         // update contries scores
         for($i = 1; $i <= 10; $i++)
         {
+            $point = $i;
+
             if ($i >= 9) 
             {
                 switch($i)
                 {
-                    case 9: $i++; break;
-                    case 10: $i=$i+2; break;
+                    case 9: $point++; break;
+                    case 10: $point+=2; break;
                 }
             }
-            $pointColumn = 'point_' . $i;
+
+            $pointColumn = 'point_' . $point ;
 
             $country = Country::findOrFail($validatedData[$pointColumn]);
-            $country->score += $i;
+            $country->score += $point;
             $country->save();
         }
 

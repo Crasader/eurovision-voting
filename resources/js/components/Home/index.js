@@ -14,9 +14,9 @@ class Results extends Component {
                                 <ul className='list-group list-group-flush'>
                                     <Link
                                         className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                                        to={`/contries`}
+                                        to={`/countries`}
                                     >
-                                        Contries
+                                        Countries
                                     </Link>
                                     <Link
                                         className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'

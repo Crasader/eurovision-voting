@@ -20,4 +20,5 @@ class Vote extends Model
         'point_10' => 'integer',
         'point_12' => 'integer'
     ];
+    public $timestamps = false;
 }

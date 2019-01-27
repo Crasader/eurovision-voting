@@ -5,20 +5,20 @@ class Results extends Component {
 	constructor() {
 		super()
 		this.state = {
-			contries: []
+			countries: []
 		}
 	}
 
 	componentDidMount() {
-		axios.get('/api/contries/results').then(response => {
+		axios.get('/api/countries/results').then(response => {
 			this.setState({
-				contries: response.data
+				countries: response.data
 			})
 		})
 	}
 
 	render() {
-		const { contries } = this.state
+		const { countries } = this.state
 		return (
 			<div className='container py-4'>
 				<div className='row justify-content-center'>
@@ -27,8 +27,8 @@ class Results extends Component {
 							<div className='card-header'>Results</div>
 							<div className='card-body'>
 								<ul className='list-group list-group-flush'>
-									{ contries.length != 0 ?
-										contries.map(country => (
+									{countries.length != 0 ?
+										countries.map(country => (
 											<div
 												className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
 												key={country.id}
@@ -39,14 +39,13 @@ class Results extends Component {
 												</span>
 											</div>
 										))
-									:
+										:
 										<div
-										className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
+											className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
 										>
 											Fetching data...
 										</div>
 									}
-
 								</ul>
 							</div>
 						</div>

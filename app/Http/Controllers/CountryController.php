@@ -9,24 +9,16 @@ class CountryController extends Controller
 {
     public function index()
     {
-        $contires = Country::select('id', 'name')
+        $countries = Country::select('id', 'name', 'has_voted')
                             ->get();
 
-        return $contires->toJson();
-    }
-
-    public function voteStatus()
-    {
-        $contires = Country::select('id', 'name', 'has_voted')
-                            ->get();
-
-        return $contires->toJson();
+        return $countries->toJson();
     }
 
     public function results()
     {
-        $contires = Country::orderBy('score', 'desc')->get();
+        $countries = Country::orderBy('score', 'desc')->get();
 
-        return $contires->toJson();
+        return $countries->toJson();
     }
 }

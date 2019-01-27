@@ -1,2 +1,2 @@
 # Eurovision voting
-Eurovision voting made in Laravel/React.
+Eurovision voting made in Laravel/React/SQLite.

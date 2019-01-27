@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('contries', 'CountryController@index');
-Route::get('contries/voteStatus', 'CountryController@voteStatus');
-Route::get('contries/results', 'CountryController@results');
+Route::get('countries', 'CountryController@index');
+Route::get('countries/results', 'CountryController@results');
 
 Route::get('votes/details', 'VoteController@index');
-Route::put('votes/{id}', 'VoteController@vote');
+Route::post('votes', 'VoteController@vote');

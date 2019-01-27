@@ -1,54 +1,71 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import Vote from './Vote'
 
-class ContriesList extends Component {
+class Countries extends Component {
 	constructor() {
 		super()
 		this.state = {
-			contries: []
+			countries: [],
+			votingCountryName: '',
+			votingCountryId: 0
 		}
+
+		this.fetchCountries = this.fetchCountries.bind(this)
 	}
 
 	componentDidMount() {
-		axios.get('/api/contries/voteStatus').then(response => {
+		this.fetchCountries();
+	}
+
+	fetchCountries() {
+		axios.get('/api/countries').then(response => {
 			this.setState({
-				contries: response.data
+				countries: response.data
 			})
-			console.log(response.data);
+		});
+	}
+
+	voteOpen(countryName, countryId) {
+		this.setState({
+			votingCountryName: countryName,
+			votingCountryId: countryId
 		})
+		$('#voteModal').modal('show');
 	}
 
 	render() {
-		const { contries } = this.state
+		const { countries, votingCountryId, votingCountryName } = this.state
+
+		const showContires = countries.length != 0 ? true : false;
+
 		return (
 			<div className='container py-4'>
 				<div className='row justify-content-center'>
 					<div className='col-md-8'>
 						<div className='card'>
-							<div className='card-header'>Contries</div>
+							<div className='card-header'>Countries</div>
 							<div className='card-body'>
 								<ul className='list-group list-group-flush'>
-									{contries.length != 0 ? 
-										contries.map(country => (
-											(!country.has_voted ? 
-												<Link
+									{showContires ?
+										countries.map(country => (
+											!country.has_voted ?
+												<div
 													className='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between align-items-center'
-													to={`/vote/${country.id}`}
 													key={country.id}
+													onClick={() => { this.voteOpen(country.name, country.id); }}
 												>
 													{country.name}
-												</Link>
-											:
+												</div>
+												:
 												<div
 													className='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center'
 													key={country.id}
 												>
 													{country.name}
 												</div>
-											)
 										))
-									: 
+										:
 										<div
 											className='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center'
 										>
@@ -59,10 +76,11 @@ class ContriesList extends Component {
 							</div>
 						</div>
 					</div>
+					<Vote votingCountryName={votingCountryName} votingCountryId={votingCountryId} countries={countries} refreshCountries={this.fetchCountries} />
 				</div>
 			</div>
 		)
 	}
 }
 
-export default ContriesList
+export default Countries

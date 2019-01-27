@@ -11,4 +11,5 @@ class Country extends Model
         'score' => 'integer',
         'has_voted' => 'boolean'
     ];
+    public $timestamps = false;
 }

@@ -64247,10 +64247,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
-/* harmony import */ var _ContriesList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ContriesList */ "./resources/js/components/ContriesList.js");
-/* harmony import */ var _Results__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Results */ "./resources/js/components/Results.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header/index.js");
+/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home/index.js");
+/* harmony import */ var _Countries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Countries */ "./resources/js/components/Countries/index.js");
+/* harmony import */ var _Results__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Results */ "./resources/js/components/Results/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64297,8 +64297,8 @@ function (_Component) {
         component: _Home__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
-        path: "/contries",
-        component: _ContriesList__WEBPACK_IMPORTED_MODULE_5__["default"]
+        path: "/countries",
+        component: _Countries__WEBPACK_IMPORTED_MODULE_5__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/results",
@@ -64314,20 +64314,17 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "./resources/js/components/ContriesList.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/ContriesList.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/Countries/Vote/Point.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/Countries/Vote/Point.js ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64348,42 +64345,329 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
-var ContriesList =
+var Point =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(ContriesList, _Component);
+  _inherits(Point, _Component);
 
-  function ContriesList() {
+  function Point() {
+    _classCallCheck(this, Point);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Point).apply(this, arguments));
+  }
+
+  _createClass(Point, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          point = _this$props.point,
+          countries = _this$props.countries,
+          handleFieldChange = _this$props.handleFieldChange;
+      var pointName = "point_" + point;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "custom-select",
+        name: pointName,
+        defaultValue: "",
+        onChange: handleFieldChange,
+        required: true
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "",
+        hidden: true
+      }, point), countries.map(function (country) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: country.id,
+          value: country.id
+        }, country.name);
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, "Please choose country."));
+    }
+  }]);
+
+  return Point;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Point);
+
+/***/ }),
+
+/***/ "./resources/js/components/Countries/Vote/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/Countries/Vote/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Point__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Point */ "./resources/js/components/Countries/Vote/Point.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var Vote =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Vote, _Component);
+
+  function Vote() {
     var _this;
 
-    _classCallCheck(this, ContriesList);
+    _classCallCheck(this, Vote);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ContriesList).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Vote).call(this));
     _this.state = {
-      contries: []
+      availableCountriesForVote: [],
+      point_1: 0,
+      point_2: 0,
+      point_3: 0,
+      point_4: 0,
+      point_5: 0,
+      point_6: 0,
+      point_7: 0,
+      point_8: 0,
+      point_10: 0,
+      point_12: 0
     };
+    _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.submitVote = _this.submitVote.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
-  _createClass(ContriesList, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+  _createClass(Vote, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.countries !== prevProps.countries) {
+        this.setState({
+          availableCountriesForVote: this.props.countries
+        });
+      }
+    }
+  }, {
+    key: "handleFieldChange",
+    value: function handleFieldChange(event) {
+      this.setState(_defineProperty({}, event.target.name, parseInt(event.target.value)));
+    }
+  }, {
+    key: "submitVote",
+    value: function submitVote() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/contries/voteStatus').then(function (response) {
-        _this2.setState({
-          contries: response.data
-        });
-
-        console.log(response.data);
+      event.preventDefault();
+      var _this$props = this.props,
+          votingCountryId = _this$props.votingCountryId,
+          history = _this$props.history;
+      var _this$state = this.state,
+          point_1 = _this$state.point_1,
+          point_2 = _this$state.point_2,
+          point_3 = _this$state.point_3,
+          point_4 = _this$state.point_4,
+          point_5 = _this$state.point_5,
+          point_6 = _this$state.point_6,
+          point_7 = _this$state.point_7,
+          point_8 = _this$state.point_8,
+          point_10 = _this$state.point_10,
+          point_12 = _this$state.point_12;
+      var vote = {
+        country_id: votingCountryId,
+        point_1: point_1,
+        point_2: point_2,
+        point_3: point_3,
+        point_4: point_4,
+        point_5: point_5,
+        point_6: point_6,
+        point_7: point_7,
+        point_8: point_8,
+        point_10: point_10,
+        point_12: point_12
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/votes', vote).then(function (response) {
+        _this2.closeVote();
       });
+    }
+  }, {
+    key: "closeVote",
+    value: function closeVote() {
+      var refreshCountries = this.props.refreshCountries;
+      refreshCountries();
+      $('#voteModal').modal('hide');
     }
   }, {
     key: "render",
     value: function render() {
-      var contries = this.state.contries;
+      var _this3 = this;
+
+      var availableCountriesForVote = this.state.availableCountriesForVote;
+      var votingCountryName = this.props.votingCountryName;
+      var points = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12];
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal fade",
+        id: "voteModal",
+        tabIndex: "-1",
+        role: "dialog",
+        "aria-labelledby": "voteTitle",
+        "aria-hidden": "true"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-dialog modal-dialog-centered",
+        role: "document"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "voteTitle"
+      }, "Vote as ", votingCountryName), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.submitVote,
+        className: "was-validated"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-body"
+      }, points.map(function (point) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Point__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          point: point,
+          countries: availableCountriesForVote,
+          key: point,
+          handleFieldChange: _this3.handleFieldChange
+        });
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "modal-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "btn btn-primary"
+      }, "Save vote"))))));
+    }
+  }]);
+
+  return Vote;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Vote);
+
+/***/ }),
+
+/***/ "./resources/js/components/Countries/index.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Countries/index.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Vote__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Vote */ "./resources/js/components/Countries/Vote/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var Countries =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Countries, _Component);
+
+  function Countries() {
+    var _this;
+
+    _classCallCheck(this, Countries);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Countries).call(this));
+    _this.state = {
+      countries: [],
+      votingCountryName: '',
+      votingCountryId: 0
+    };
+    _this.fetchCountries = _this.fetchCountries.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Countries, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.fetchCountries();
+    }
+  }, {
+    key: "fetchCountries",
+    value: function fetchCountries() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/countries').then(function (response) {
+        _this2.setState({
+          countries: response.data
+        });
+      });
+    }
+  }, {
+    key: "voteOpen",
+    value: function voteOpen(countryName, countryId) {
+      this.setState({
+        votingCountryName: countryName,
+        votingCountryId: countryId
+      });
+      $('#voteModal').modal('show');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var _this$state = this.state,
+          countries = _this$state.countries,
+          votingCountryId = _this$state.votingCountryId,
+          votingCountryName = _this$state.votingCountryName;
+      var showContires = countries.length != 0 ? true : false;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container py-4"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -64394,36 +64678,43 @@ function (_Component) {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
-      }, "Contries"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Countries"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
         className: "list-group list-group-flush"
-      }, contries.length != 0 ? contries.map(function (country) {
-        return !country.has_voted ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }, showContires ? countries.map(function (country) {
+        return !country.has_voted ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "list-group-item list-group-item-action list-group-item-success d-flex justify-content-between align-items-center",
-          to: "/vote/".concat(country.id),
-          key: country.id
+          key: country.id,
+          onClick: function onClick() {
+            _this3.voteOpen(country.name, country.id);
+          }
         }, country.name) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center",
           key: country.id
         }, country.name);
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center"
-      }, "Fetching data...")))))));
+      }, "Fetching data..."))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vote__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        votingCountryName: votingCountryName,
+        votingCountryId: votingCountryId,
+        countries: countries,
+        refreshCountries: this.fetchCountries
+      })));
     }
   }]);
 
-  return ContriesList;
+  return Countries;
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (ContriesList);
+/* harmony default export */ __webpack_exports__["default"] = (Countries);
 
 /***/ }),
 
-/***/ "./resources/js/components/Header.js":
-/*!*******************************************!*\
-  !*** ./resources/js/components/Header.js ***!
-  \*******************************************/
+/***/ "./resources/js/components/Header/index.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/Header/index.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64450,10 +64741,10 @@ var Header = function Header() {
 
 /***/ }),
 
-/***/ "./resources/js/components/Home.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/Home.js ***!
-  \*****************************************/
+/***/ "./resources/js/components/Home/index.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/Home/index.js ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64513,8 +64804,8 @@ function (_Component) {
         className: "list-group list-group-flush"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
-        to: "/contries"
-      }, "Contries"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/countries"
+      }, "Countries"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
         to: "/results"
       }, "Results")))))));
@@ -64528,10 +64819,10 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Results.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/Results.js ***!
-  \********************************************/
+/***/ "./resources/js/components/Results/index.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Results/index.js ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64574,7 +64865,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Results).call(this));
     _this.state = {
-      contries: []
+      countries: []
     };
     return _this;
   }
@@ -64584,16 +64875,16 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/contries/results').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/countries/results').then(function (response) {
         _this2.setState({
-          contries: response.data
+          countries: response.data
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var contries = this.state.contries;
+      var countries = this.state.countries;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container py-4"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -64608,7 +64899,7 @@ function (_Component) {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
         className: "list-group list-group-flush"
-      }, contries.length != 0 ? contries.map(function (country) {
+      }, countries.length != 0 ? countries.map(function (country) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
           key: country.id
